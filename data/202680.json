@@ -4,7 +4,7 @@
     "id": "202680",
     "name": "Fall 2026"
   },
-  "imported_at": "2026-08-30T05:35:32Z",
+  "imported_at": "2026-08-30T05:40:43Z",
   "unresolved_instructors": [
     "Addae, Sampson",
     "Rahaei, Arefeh",
@@ -12,9 +12,7 @@
     "Smith, Deborah",
     "Zheng, Xiaoyu"
   ],
-  "ambiguous_combined_sections": [
-    "CS 44901 section 001"
-  ],
+  "ambiguous_combined_sections": [],
   "lectures": [
     {
       "course": "CS 10051",
@@ -277,14 +275,14 @@
       "email": null,
       "campus": "KC",
       "component": "Combined L",
-      "room": "MSB 00162",
+      "room": "MSB 00211",
       "meetings": [
         {
           "days": [
-            "Monday",
-            "Wednesday"
+            "Tuesday",
+            "Thursday"
           ],
-          "start": "12:05",
+          "start": "12:30",
           "end": "13:45"
         }
       ]

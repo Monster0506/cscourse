@@ -219,10 +219,11 @@ def parse_class_data(
     faculty_emails: dict[str, str],
     room_overrides: dict[str, str] | None = None,
     ambiguous_sink: list[str] | None = None,
+    skip_sections: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     room_overrides = room_overrides or {}
+    skip_sections = skip_sections or set()
     root = ElementTree.fromstring(document)
-
     course = root.find(".//course")
     offering = root.find(".//offering")
 
@@ -279,7 +280,7 @@ def parse_class_data(
         )
 
         if ambiguous:
-            if ambiguous_sink is not None:
+            if f"{course_code}|{section}" not in skip_sections and ambiguous_sink is not None:
                 ambiguous_sink.append(f"{course_code} section {section}")
             continue
 
@@ -504,12 +505,13 @@ def fetch_faculty_emails() -> dict[str, str]:
 
 def load_overrides(path: Path) -> dict[str, Any]:
     if not path.exists():
-        return {"email_overrides": {}, "extra_lectures": [], "room_overrides": {}}
+        return {"email_overrides": {}, "extra_lectures": [], "room_overrides": {}, "skip_sections": []}
     with path.open(encoding="utf-8") as handle:
         overrides = json.load(handle)
     overrides.setdefault("email_overrides", {})
     overrides.setdefault("extra_lectures", [])
     overrides.setdefault("room_overrides", {})
+    overrides.setdefault("skip_sections", [])
     return overrides
 
 
@@ -531,6 +533,7 @@ def import_semester(
         overrides_path or destination.with_name(f"{term}.overrides.json")
     )
     room_overrides: dict[str, str] = overrides["room_overrides"]
+    skip_sections: set[str] = set(overrides["skip_sections"])
     ambiguous_combined: list[str] = []
 
     lectures = [
@@ -541,6 +544,7 @@ def import_semester(
             faculty_emails,
             room_overrides,
             ambiguous_combined,
+            skip_sections,
         )
     ]
 

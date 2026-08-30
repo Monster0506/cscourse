@@ -3,7 +3,8 @@
     "Guo, Yuzhi": "yguo30@kent.edu"
   },
   "room_overrides": {
-    "CS 13012|011": "MSB 00162"
+    "CS 13012|011": "MSB 00211"
   },
+  "skip_sections": ["CS 44901|001"],
   "extra_lectures": []
 }
