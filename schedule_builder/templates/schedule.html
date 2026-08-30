@@ -88,7 +88,7 @@
               {% for row in rows %}
                 <tr>
                   <td><strong>{{ row.title }}</strong><br><small>{{ row.course }}</small></td>
-                  <td>{% for meeting in row.meetings %}{{ meeting.day }}<br><small>{{ meeting.start }}-{{ meeting.end }}</small>{% if not loop.last %}<br><br>{% endif %}{% endfor %}</td>
+                  <td>{% for meeting in row.meetings %}{{ meeting.start }}-{{ meeting.end }} {{ meeting.days | format_days }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
                   <td>{{ row.room }}</td>
                   <td>{% for speaker in row.speakers %}{{ speaker.name }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
                   <td>{% for speaker in row.speakers %}{% if speaker.email %}<a href="mailto:{{ speaker.email }}">{{ speaker.email }}</a>{% else %}Unavailable{% endif %}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>

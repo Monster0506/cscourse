@@ -7,6 +7,8 @@ import json
 
 from flask import Flask, abort, render_template, request
 
+from schedule_builder.vsb import format_days
+
 
 DAY_ORDER = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 DAY_INDEX = {day: index + 1 for index, day in enumerate(DAY_ORDER)}
@@ -124,13 +126,17 @@ def group_room_sessions(lectures: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for lecture in lectures:
         meetings = tuple(
             sorted(
-                (meeting for meeting in lecture["meetings"] if meeting["day"] in DAY_INDEX),
-                key=lambda meeting: (DAY_INDEX[meeting["day"]], meeting["start"]),
+                (
+                    {"days": tuple(day for day in meeting["days"] if day in DAY_INDEX), "start": meeting["start"], "end": meeting["end"]}
+                    for meeting in lecture["meetings"]
+                    if any(day in DAY_INDEX for day in meeting["days"])
+                ),
+                key=lambda meeting: (DAY_INDEX[meeting["days"][0]], meeting["start"]),
             )
         )
         if not meetings:
             continue
-        meeting_key = tuple((meeting["day"], meeting["start"], meeting["end"]) for meeting in meetings)
+        meeting_key = tuple((meeting["days"], meeting["start"], meeting["end"]) for meeting in meetings)
         key = (lecture["course"], lecture["title"], lecture["campus"], lecture["room"], meeting_key)
         session = sessions.setdefault(
             key,
@@ -151,11 +157,16 @@ def group_room_sessions(lectures: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if speaker not in session["speakers"]:
             session["speakers"].append(speaker)
 
+    for session in sessions.values():
+        real_speakers = [speaker for speaker in session["speakers"] if speaker["name"] != "Unavailable"]
+        if real_speakers:
+            session["speakers"] = real_speakers
+
     return sorted(
         sessions.values(),
         key=lambda session: (
             session["course"],
-            DAY_INDEX[session["meetings"][0]["day"]],
+            DAY_INDEX[session["meetings"][0]["days"][0]],
             session["meetings"][0]["start"],
             session["room"],
         ),
@@ -165,6 +176,7 @@ def group_room_sessions(lectures: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def create_app(data_directory: Path | None = None) -> Flask:
     app = Flask(__name__)
     app.config["DATA_DIRECTORY"] = data_directory or Path("data")
+    app.jinja_env.filters["format_days"] = format_days
 
     @app.get("/")
     def index() -> str:
@@ -191,14 +203,15 @@ def create_app(data_directory: Path | None = None) -> Flask:
         calendar: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for session in sessions:
             for meeting in session["meetings"]:
-                calendar[meeting["day"]].append(
-                    {
-                        **session,
-                        **meeting,
-                        "start_slot": max(1, (minutes(meeting["start"]) - 420) // 15 + 1),
-                        "duration_slots": max(1, (minutes(meeting["end"]) - minutes(meeting["start"]) + 14) // 15),
-                    }
-                )
+                for day in meeting["days"]:
+                    calendar[day].append(
+                        {
+                            **session,
+                            **meeting,
+                            "start_slot": max(1, (minutes(meeting["start"]) - 420) // 15 + 1),
+                            "duration_slots": max(1, (minutes(meeting["end"]) - minutes(meeting["start"]) + 14) // 15),
+                        }
+                    )
 
         for day in DAY_ORDER:
             calendar[day].sort(

@@ -29,6 +29,15 @@ DAY_NAMES = {
 INCLUDED_CAMPUSES = {"KC"}
 INCLUDED_BLOCK_TYPES = {"Lec", "Combined L"}
 
+WEEKDAY_ORDER = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+WEEKDAY_INDEX = {day: index for index, day in enumerate(WEEKDAY_ORDER)}
+DAY_LETTERS = {"Monday": "M", "Tuesday": "T", "Wednesday": "W", "Thursday": "R", "Friday": "F"}
+
+
+def format_days(days: list[str]) -> str:
+    ordered = sorted(days, key=lambda day: WEEKDAY_INDEX.get(day, len(WEEKDAY_ORDER)))
+    return "/".join(DAY_LETTERS.get(day, day) for day in ordered)
+
 
 def cache_buster(now_ms: int | None = None) -> dict[str, str]:
     minute = int(
@@ -58,6 +67,23 @@ def normalize_instructor_name(name: str) -> str:
     return " ".join(
         re.sub(r"[^A-Za-z0-9 ]", " ", name).casefold().split()
     )
+
+
+def match_key(normalized_name: str) -> tuple[str, str]:
+    tokens = normalized_name.split()
+    if not tokens:
+        return ("", "")
+    return (tokens[0], tokens[-1])
+
+
+def resolve_email(normalized_instructor: str, faculty_emails: dict[str, str]) -> str | None:
+    if normalized_instructor in faculty_emails:
+        return faculty_emails[normalized_instructor]
+    key = match_key(normalized_instructor)
+    for name, email in faculty_emails.items():
+        if match_key(name) == key:
+            return email
+    return None
 
 
 def is_undergraduate_course(course: str) -> bool:
@@ -125,10 +151,48 @@ def parse_faculty_directory(document: str) -> dict[str, str]:
     return parser.emails
 
 
+def resolve_lecture_room(
+    block: dict[str, str],
+    course_code: str,
+    room_overrides: dict[str, str],
+) -> tuple[set[str], str, bool]:
+    """Combined lecture+lab blocks list every meeting's room in `loos`,
+    keyed by timeblock id. Group timeblocks by room and keep the room
+    that meets most often as the lecture; a plain single-room block has
+    an empty `loos` and is returned unchanged."""
+    loos = json.loads(block.get("loos") or "{}")
+    location = block.get("location", "")
+    all_ids = [identifier for identifier in block.get("timeblockids", "").split(",") if identifier]
+
+    if not loos:
+        return set(all_ids), location, False
+
+    rooms_by_id = {identifier: loos.get(identifier, location) for identifier in all_ids}
+    counts: dict[str, int] = {}
+    for room in rooms_by_id.values():
+        counts[room] = counts.get(room, 0) + 1
+    max_count = max(counts.values())
+    leaders = [room for room, count in counts.items() if count == max_count]
+
+    if len(leaders) == 1:
+        lecture_room = leaders[0]
+    else:
+        override_room = room_overrides.get(f"{course_code}|{block.get('secNo', '')}")
+        if override_room not in leaders:
+            return set(), location, True
+        lecture_room = override_room
+
+    lecture_ids = {identifier for identifier, room in rooms_by_id.items() if room == lecture_room}
+    return lecture_ids, lecture_room, False
+
+
 def parse_class_data(
     document: str,
     faculty_emails: dict[str, str],
+    room_overrides: dict[str, str] | None = None,
+    ambiguous_sink: list[str] | None = None,
 ) -> list[dict[str, Any]]:
+    room_overrides = room_overrides or {}
     root = ElementTree.fromstring(document)
 
     course = root.find(".//course")
@@ -142,6 +206,7 @@ def parse_class_data(
     course_code = f"{course.attrib['code']} {course.attrib['number']}"
     title = offering.attrib.get("title", "")
     records: dict[str, dict[str, Any]] = {}
+    meetings_by_time: dict[str, dict[tuple[str, str], set[str]]] = {}
 
     for uselection in course.findall("uselection"):
         timeblocks = {
@@ -171,6 +236,13 @@ def parse_class_data(
                     else ""
                 )
 
+                lecture_ids, lecture_room, ambiguous = resolve_lecture_room(
+                    block.attrib, course_code, room_overrides
+                )
+
+                if ambiguous and ambiguous_sink is not None:
+                    ambiguous_sink.append(f"{course_code} section {block.attrib.get('secNo', '')}")
+
                 record = records.setdefault(
                     crn,
                     {
@@ -180,40 +252,41 @@ def parse_class_data(
                         "crn": crn,
                         "instructor": instructor,
                         "email": (
-                            faculty_emails.get(normalized)
+                            resolve_email(normalized, faculty_emails)
                             if normalized
                             else None
                         ),
                         "campus": campus,
                         "component": block_type,
-                        "room": block.attrib.get("location", ""),
+                        "room": lecture_room,
                         "meetings": [],
                     },
                 )
+                times = meetings_by_time.setdefault(crn, {})
 
-                for identifier in block.attrib.get(
-                    "timeblockids",
-                    "",
-                ).split(","):
+                for identifier in lecture_ids:
                     timeblock = timeblocks.get(identifier)
 
                     if timeblock is None:
                         continue
 
-                    meeting = {
-                        "day": DAY_NAMES.get(
-                            timeblock.get("day", ""),
-                            "Unknown",
-                        ),
-                        "start": clock_time(timeblock["t1"]),
-                        "end": clock_time(timeblock["t2"]),
-                    }
+                    day = DAY_NAMES.get(timeblock.get("day", ""), "Unknown")
 
-                    if meeting["day"] in {"Saturday", "Sunday"}:
+                    if day in {"Saturday", "Sunday"}:
                         continue
 
-                    if meeting not in record["meetings"]:
-                        record["meetings"].append(meeting)
+                    key = (clock_time(timeblock["t1"]), clock_time(timeblock["t2"]))
+                    times.setdefault(key, set()).add(day)
+
+    for crn, record in records.items():
+        record["meetings"] = [
+            {
+                "days": [day for day in WEEKDAY_ORDER if day in days],
+                "start": start,
+                "end": end,
+            }
+            for (start, end), days in sorted(meetings_by_time.get(crn, {}).items())
+        ]
 
     return sorted(
         (
@@ -383,22 +456,38 @@ class VsbClient:
 
 
 def fetch_faculty_emails() -> dict[str, str]:
-    request = Request(
-        FACULTY_DIRECTORY_URL,
-        headers={
-            "User-Agent": "kent-cs-schedule-builder/1",
-        },
-    )
+    opener = build_opener()
+    emails: dict[str, str] = {}
 
-    with build_opener().open(request, timeout=30) as response:
-        return parse_faculty_directory(
-            response.read().decode("utf-8")
+    for page in range(0, 20):
+        request = Request(
+            f"{FACULTY_DIRECTORY_URL}?page={page}",
+            headers={"User-Agent": "kent-cs-schedule-builder/1"},
         )
+        with opener.open(request, timeout=30) as response:
+            page_emails = parse_faculty_directory(response.read().decode("utf-8"))
+        if not page_emails:
+            break
+        emails.update(page_emails)
+
+    return emails
+
+
+def load_overrides(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"email_overrides": {}, "extra_lectures": [], "room_overrides": {}}
+    with path.open(encoding="utf-8") as handle:
+        overrides = json.load(handle)
+    overrides.setdefault("email_overrides", {})
+    overrides.setdefault("extra_lectures", [])
+    overrides.setdefault("room_overrides", {})
+    return overrides
 
 
 def import_semester(
     term: str,
     destination: Path,
+    overrides_path: Path | None = None,
 ) -> dict[str, Any]:
     client = VsbClient()
     terms = client.terms()
@@ -409,6 +498,11 @@ def import_semester(
         )
 
     faculty_emails = fetch_faculty_emails()
+    overrides = load_overrides(
+        overrides_path or destination.with_name(f"{term}.overrides.json")
+    )
+    room_overrides: dict[str, str] = overrides["room_overrides"]
+    ambiguous_combined: list[str] = []
 
     lectures = [
         lecture
@@ -416,8 +510,19 @@ def import_semester(
         for lecture in parse_class_data(
             client.class_data(term, course),
             faculty_emails,
+            room_overrides,
+            ambiguous_combined,
         )
     ]
+
+    email_overrides: dict[str, str] = overrides["email_overrides"]
+    for lecture in lectures:
+        override_email = email_overrides.get(lecture["instructor"] or "")
+        if override_email:
+            lecture["email"] = override_email
+
+    lectures.extend(overrides["extra_lectures"])
+    lectures.sort(key=lambda record: (record["course"], record["section"], record["crn"]))
 
     unresolved = sorted(
         {
@@ -439,6 +544,7 @@ def import_semester(
             time.gmtime(),
         ),
         "unresolved_instructors": unresolved,
+        "ambiguous_combined_sections": sorted(set(ambiguous_combined)),
         "lectures": lectures,
     }
 
