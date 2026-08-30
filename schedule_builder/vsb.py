@@ -151,39 +151,67 @@ def parse_faculty_directory(document: str) -> dict[str, str]:
     return parser.emails
 
 
-def resolve_lecture_room(
+def room_time_groups(
     block: dict[str, str],
-    course_code: str,
-    room_overrides: dict[str, str],
-) -> tuple[set[str], str, bool]:
-    """Combined lecture+lab blocks list every meeting's room in `loos`,
-    keyed by timeblock id. Group timeblocks by room and keep the room
-    that meets most often as the lecture; a plain single-room block has
-    an empty `loos` and is returned unchanged."""
+    timeblocks: dict[str, dict[str, str]],
+) -> dict[str, tuple[tuple[str, str, str], ...]]:
+    """Group a block's own timeblocks by room, keeping each room's
+    weekly (day, start, end) pattern. A plain single-room block has an
+    empty `loos` and collapses to one room holding every timeblock."""
     loos = json.loads(block.get("loos") or "{}")
     location = block.get("location", "")
-    all_ids = [identifier for identifier in block.get("timeblockids", "").split(",") if identifier]
+    ids = [identifier for identifier in block.get("timeblockids", "").split(",") if identifier]
 
-    if not loos:
-        return set(all_ids), location, False
+    by_room: dict[str, list[tuple[str, str, str]]] = {}
+    for identifier in ids:
+        timeblock = timeblocks.get(identifier)
+        if timeblock is None:
+            continue
+        day = DAY_NAMES.get(timeblock.get("day", ""), "Unknown")
+        if day in {"Saturday", "Sunday"}:
+            continue
+        room = loos.get(identifier, location) if loos else location
+        entry = (day, clock_time(timeblock["t1"]), clock_time(timeblock["t2"]))
+        by_room.setdefault(room, []).append(entry)
 
-    rooms_by_id = {identifier: loos.get(identifier, location) for identifier in all_ids}
-    counts: dict[str, int] = {}
-    for room in rooms_by_id.values():
-        counts[room] = counts.get(room, 0) + 1
-    max_count = max(counts.values())
-    leaders = [room for room, count in counts.items() if count == max_count]
+    return {room: tuple(sorted(entries)) for room, entries in by_room.items()}
+
+
+def pick_lecture_room(
+    groups: dict[str, tuple[tuple[str, str, str], ...]],
+    pattern_counts: dict[tuple[str, tuple[tuple[str, str, str], ...]], int],
+    course_code: str,
+    section: str,
+    room_overrides: dict[str, str],
+) -> tuple[str, bool]:
+    """Pick which room-group is the lecture. A single-room block has one
+    group and is unambiguous. A combined block's lecture time is normally
+    identical across every section (one shared lecture, N separate lab
+    breakouts) - the room+time pattern seen in the most sections wins.
+    Only when that is also tied (typically a single-section course) does
+    a manual override apply."""
+    if len(groups) <= 1:
+        return next(iter(groups), ""), False
+
+    within_counts = {room: len(times) for room, times in groups.items()}
+    max_within = max(within_counts.values())
+    leaders = [room for room, count in within_counts.items() if count == max_within]
 
     if len(leaders) == 1:
-        lecture_room = leaders[0]
-    else:
-        override_room = room_overrides.get(f"{course_code}|{block.get('secNo', '')}")
-        if override_room not in leaders:
-            return set(), location, True
-        lecture_room = override_room
+        return leaders[0], False
 
-    lecture_ids = {identifier for identifier, room in rooms_by_id.items() if room == lecture_room}
-    return lecture_ids, lecture_room, False
+    cross_section_counts = {room: pattern_counts.get((room, groups[room]), 0) for room in leaders}
+    max_cross = max(cross_section_counts.values())
+    cross_leaders = [room for room, count in cross_section_counts.items() if count == max_cross]
+
+    if len(cross_leaders) == 1:
+        return cross_leaders[0], False
+
+    override_room = room_overrides.get(f"{course_code}|{section}")
+    if override_room in cross_leaders:
+        return override_room, False
+
+    return "", True
 
 
 def parse_class_data(
@@ -205,8 +233,9 @@ def parse_class_data(
 
     course_code = f"{course.attrib['code']} {course.attrib['number']}"
     title = offering.attrib.get("title", "")
-    records: dict[str, dict[str, Any]] = {}
-    meetings_by_time: dict[str, dict[tuple[str, str], set[str]]] = {}
+
+    included_blocks: list[tuple[dict[str, str], dict[str, tuple[tuple[str, str, str], ...]]]] = []
+    pattern_counts: dict[tuple[str, tuple[tuple[str, str, str], ...]], set[str]] = {}
 
     for uselection in course.findall("uselection"):
         timeblocks = {
@@ -225,58 +254,58 @@ def parse_class_data(
                 ):
                     continue
 
+                groups = room_time_groups(block.attrib, timeblocks)
+                if not groups:
+                    continue
                 crn = block.attrib["key"]
-                instructor = (
-                    block.attrib.get("teacher", "").strip() or None
-                )
+                for room, times in groups.items():
+                    pattern_counts.setdefault((room, times), set()).add(crn)
 
-                normalized = (
-                    normalize_instructor_name(instructor)
-                    if instructor
-                    else ""
-                )
+                included_blocks.append((block.attrib, groups))
 
-                lecture_ids, lecture_room, ambiguous = resolve_lecture_room(
-                    block.attrib, course_code, room_overrides
-                )
+    pattern_section_counts = {key: len(crns) for key, crns in pattern_counts.items()}
 
-                if ambiguous and ambiguous_sink is not None:
-                    ambiguous_sink.append(f"{course_code} section {block.attrib.get('secNo', '')}")
+    records: dict[str, dict[str, Any]] = {}
+    meetings_by_time: dict[str, dict[tuple[str, str], set[str]]] = {}
 
-                record = records.setdefault(
-                    crn,
-                    {
-                        "course": course_code,
-                        "title": title,
-                        "section": block.attrib.get("secNo", ""),
-                        "crn": crn,
-                        "instructor": instructor,
-                        "email": (
-                            resolve_email(normalized, faculty_emails)
-                            if normalized
-                            else None
-                        ),
-                        "campus": campus,
-                        "component": block_type,
-                        "room": lecture_room,
-                        "meetings": [],
-                    },
-                )
-                times = meetings_by_time.setdefault(crn, {})
+    for block, groups in included_blocks:
+        crn = block["key"]
+        instructor = block.get("teacher", "").strip() or None
+        normalized = normalize_instructor_name(instructor) if instructor else ""
+        section = block.get("secNo", "")
 
-                for identifier in lecture_ids:
-                    timeblock = timeblocks.get(identifier)
+        lecture_room, ambiguous = pick_lecture_room(
+            groups, pattern_section_counts, course_code, section, room_overrides
+        )
 
-                    if timeblock is None:
-                        continue
+        if ambiguous:
+            if ambiguous_sink is not None:
+                ambiguous_sink.append(f"{course_code} section {section}")
+            continue
 
-                    day = DAY_NAMES.get(timeblock.get("day", ""), "Unknown")
+        record = records.setdefault(
+            crn,
+            {
+                "course": course_code,
+                "title": title,
+                "section": section,
+                "crn": crn,
+                "instructor": instructor,
+                "email": (
+                    resolve_email(normalized, faculty_emails)
+                    if normalized
+                    else None
+                ),
+                "campus": block.get("campus", ""),
+                "component": block.get("type", ""),
+                "room": lecture_room,
+                "meetings": [],
+            },
+        )
+        times = meetings_by_time.setdefault(crn, {})
 
-                    if day in {"Saturday", "Sunday"}:
-                        continue
-
-                    key = (clock_time(timeblock["t1"]), clock_time(timeblock["t2"]))
-                    times.setdefault(key, set()).add(day)
+        for day, start, end in groups[lecture_room]:
+            times.setdefault((start, end), set()).add(day)
 
     for crn, record in records.items():
         record["meetings"] = [

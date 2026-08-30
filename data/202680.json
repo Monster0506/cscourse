@@ -4,7 +4,7 @@
     "id": "202680",
     "name": "Fall 2026"
   },
-  "imported_at": "2026-08-30T05:25:04Z",
+  "imported_at": "2026-08-30T05:35:32Z",
   "unresolved_instructors": [
     "Addae, Sampson",
     "Rahaei, Arefeh",
@@ -13,7 +13,6 @@
     "Zheng, Xiaoyu"
   ],
   "ambiguous_combined_sections": [
-    "CS 13001 section 005",
     "CS 44901 section 001"
   ],
   "lectures": [
@@ -173,15 +172,15 @@
       "email": "mbektic@kent.edu",
       "campus": "KC",
       "component": "Combined L",
-      "room": "MSB 00156",
+      "room": "LRH 00143",
       "meetings": [
         {
           "days": [
-            "Monday",
-            "Wednesday"
+            "Tuesday",
+            "Thursday"
           ],
-          "start": "09:55",
-          "end": "11:35"
+          "start": "12:30",
+          "end": "13:45"
         }
       ]
     },
@@ -194,15 +193,15 @@
       "email": "mbektic@kent.edu",
       "campus": "KC",
       "component": "Combined L",
-      "room": "MSB 00139",
+      "room": "LRH 00143",
       "meetings": [
         {
           "days": [
             "Tuesday",
             "Thursday"
           ],
-          "start": "09:55",
-          "end": "11:35"
+          "start": "12:30",
+          "end": "13:45"
         }
       ]
     },
@@ -215,15 +214,15 @@
       "email": "mbektic@kent.edu",
       "campus": "KC",
       "component": "Combined L",
-      "room": "MSB 00156",
+      "room": "LRH 00143",
       "meetings": [
         {
           "days": [
-            "Monday",
-            "Wednesday"
+            "Tuesday",
+            "Thursday"
           ],
-          "start": "14:15",
-          "end": "15:55"
+          "start": "12:30",
+          "end": "13:45"
         }
       ]
     },
@@ -236,15 +235,36 @@
       "email": "mbektic@kent.edu",
       "campus": "KC",
       "component": "Combined L",
-      "room": "MSB 00156",
+      "room": "LRH 00143",
       "meetings": [
         {
           "days": [
             "Tuesday",
             "Thursday"
           ],
-          "start": "14:15",
-          "end": "15:55"
+          "start": "12:30",
+          "end": "13:45"
+        }
+      ]
+    },
+    {
+      "course": "CS 13001",
+      "title": "COMPUTER SCIENCE I: PROGRAMMING AND PROBLEM SOLVING",
+      "section": "005",
+      "crn": "18488",
+      "instructor": "Bektic, Meldin",
+      "email": "mbektic@kent.edu",
+      "campus": "KC",
+      "component": "Combined L",
+      "room": "LRH 00143",
+      "meetings": [
+        {
+          "days": [
+            "Tuesday",
+            "Thursday"
+          ],
+          "start": "12:30",
+          "end": "13:45"
         }
       ]
     },
