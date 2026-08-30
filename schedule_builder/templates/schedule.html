@@ -42,13 +42,29 @@
               <h3>{{ day }}</h3>
               <div class="events">
                 {% for event in calendar[day] %}
-                  <div class="event" style="--start: {{ event.start_slot }}; --duration: {{ event.duration_slots }}">
-                    <strong>{{ event.course }}</strong>
-                    <span class="event-room">{{ event.room or 'Room unavailable' }}</span>
-                    <span class="event-speaker">{{ event.speakers | map(attribute='name') | join(', ') }}</span>
-                  </div>
-                {% else %}
-                  <p class="empty">No sessions</p>
+<div
+  class="event"
+  style="
+    --start: {{ event.start_slot }};
+    --duration: {{ event.duration_slots }};
+    --left: {{ event.left_percent }}%;
+    --width: {{ event.width_percent }}%;
+  "
+> 
+ <strong title="{{ event.title }}">{{ event.title }}</strong>
+  <span
+    title="{{ event.room or 'Room unavailable' }}"
+    class="event-room"
+  >
+    {{ event.room or 'Room unavailable' }}
+  </span>
+  <span
+    title="{{ event.speakers | map(attribute='name') | join(', ') }}"
+    class="event-speaker"
+  >
+    {{ event.speakers | map(attribute='name') | join(', ') }}
+  </span>
+</div>
                 {% endfor %}
               </div>
             </article>
@@ -62,9 +78,6 @@
             <p class="eyebrow">Room sessions</p>
             <h2 id="list-heading">Room schedule</h2>
           </div>
-          {% if schedule.unresolved_instructors %}
-            <p>{{ schedule.unresolved_instructors|length }} instructor email{{ '' if schedule.unresolved_instructors|length == 1 else 's' }} unavailable.</p>
-          {% endif %}
         </div>
         <div class="table-wrap">
           <table>
@@ -74,7 +87,7 @@
             <tbody>
               {% for row in rows %}
                 <tr>
-                  <td><strong>{{ row.course }}</strong><br><small>{{ row.title }}</small></td>
+                  <td><strong>{{ row.title }}</strong><br><small>{{ row.course }}</small></td>
                   <td>{% for meeting in row.meetings %}{{ meeting.day }}<br><small>{{ meeting.start }}-{{ meeting.end }}</small>{% if not loop.last %}<br><br>{% endif %}{% endfor %}</td>
                   <td>{{ row.room }}</td>
                   <td>{% for speaker in row.speakers %}{{ speaker.name }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>

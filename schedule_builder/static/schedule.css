@@ -114,3 +114,109 @@ a { color: #005a98; }
   header, main { padding: 1.25rem 1rem; }
   h1 { font-size: 2.25rem; }
 }
+
+.calendar {
+  display: grid;
+  grid-template-columns: 4.75rem repeat(5, minmax(0, 1fr));
+  width  : 100%;
+  min-width: 68rem;
+}
+
+.events {
+  display: grid;
+  grid-template-rows: repeat(56, 1.25rem);
+  padding: 0 2px;
+}
+
+.event {
+  width: 100%;
+  min-width: 0;
+  margin: 2px 0;
+}
+
+.events {
+  display: grid;
+  grid-template-rows: repeat(56, 1.25rem);
+  position: relative;
+  min-width: 0;
+  padding: 0 2px;
+
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 4.9375rem,
+      #e7edf3 4.9375rem 5rem
+    );
+}
+
+.event {
+  grid-row: var(--start) / span var(--duration);
+
+  position: relative;
+  left: var(--left);
+  width: calc(var(--width) - 3px);
+
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  margin: 2px 0;
+  padding: .38rem .5rem;
+
+  border-left: .28rem solid #006fbc;
+  border-radius: .22rem;
+  background: #e0f0fc;
+  color: #103c67;
+  box-shadow: 0 .12rem .35rem #15395e1c;
+
+  font-size: .69rem;
+  line-height: 1.2;
+}
+
+.events {
+  display: grid;
+
+  /* One and only one horizontal column. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(56, 1.25rem);
+
+  position: relative;
+  min-width: 0;
+  padding: 0 2px;
+
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 4.9375rem,
+      #e7edf3 4.9375rem 5rem
+    );
+}
+
+.event {
+  /*
+   * Critical: every event starts in the same full-width grid column.
+   * Horizontal positioning is handled by --left and --width.
+   */
+  grid-column: 1;
+  grid-row: var(--start) / span var(--duration);
+
+  position: relative;
+  left: var(--left);
+  width: calc(var(--width) - 3px);
+
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  margin: 2px 0;
+  padding: .38rem .5rem;
+
+  border-left: .28rem solid #006fbc;
+  border-radius: .22rem;
+  background: #e0f0fc;
+  color: #103c67;
+  box-shadow: 0 .12rem .35rem #15395e1c;
+
+  font-size: .69rem;
+  line-height: 1.2;
+}
