@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if schedule %}{{ schedule.term.name }} CS lectures{% else %}Kent State CS schedules{% endif %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
+</head>
+<body>
+  <header>
+    <p class="eyebrow">Kent State University</p>
+    <h1>Undergraduate CS room schedule</h1>
+    <form method="get">
+      <label for="term">Semester</label>
+      <select id="term" name="term" onchange="this.form.submit()">
+        {% for term in terms %}
+          <option value="{{ term.id }}" {% if schedule and term.id == schedule.term.id %}selected{% endif %}>{{ term.name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Load</button>
+    </form>
+  </header>
+
+  {% if schedule %}
+    <main>
+      <section aria-labelledby="calendar-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">{{ schedule.lectures|length }} lecture sections</p>
+            <h2 id="calendar-heading">Weekly calendar</h2>
+          </div>
+        </div>
+        <div class="calendar" aria-label="Weekly lecture calendar">
+          <div class="time-rail" aria-hidden="true">
+            <div class="time-rail-heading">Time</div>
+            <div class="time-slots">
+              {% for hour in hours %}<span>{{ hour }}</span>{% endfor %}
+            </div>
+          </div>
+          {% for day in days %}
+            <article class="day">
+              <h3>{{ day }}</h3>
+              <div class="events">
+                {% for event in calendar[day] %}
+                  <div class="event" style="--start: {{ event.start_slot }}; --duration: {{ event.duration_slots }}">
+                    <strong>{{ event.course }}</strong>
+                    <span class="event-room">{{ event.room or 'Room unavailable' }}</span>
+                    <span class="event-speaker">{{ event.speakers | map(attribute='name') | join(', ') }}</span>
+                  </div>
+                {% else %}
+                  <p class="empty">No sessions</p>
+                {% endfor %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section aria-labelledby="list-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Room sessions</p>
+            <h2 id="list-heading">Room schedule</h2>
+          </div>
+          {% if schedule.unresolved_instructors %}
+            <p>{{ schedule.unresolved_instructors|length }} instructor email{{ '' if schedule.unresolved_instructors|length == 1 else 's' }} unavailable.</p>
+          {% endif %}
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Course</th><th>Meeting</th><th>Room</th><th>Speakers</th><th>Email</th></tr>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+                <tr>
+                  <td><strong>{{ row.course }}</strong><br><small>{{ row.title }}</small></td>
+                  <td>{% for meeting in row.meetings %}{{ meeting.day }}<br><small>{{ meeting.start }}-{{ meeting.end }}</small>{% if not loop.last %}<br><br>{% endif %}{% endfor %}</td>
+                  <td>{{ row.room }}</td>
+                  <td>{% for speaker in row.speakers %}{{ speaker.name }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
+                  <td>{% for speaker in row.speakers %}{% if speaker.email %}<a href="mailto:{{ speaker.email }}">{{ speaker.email }}</a>{% else %}Unavailable{% endif %}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  {% else %}
+    <main><p class="empty-state">No imported semesters yet. Run the importer, then reload this page.</p></main>
+  {% endif %}
+</body>
+</html>
