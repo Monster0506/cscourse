@@ -876,48 +876,6 @@
       ]
     },
     {
-      "course": "CS 44201",
-      "title": "ARTIFICIAL INTELLIGENCE",
-      "section": "001",
-      "crn": "12061",
-      "instructor": "Guo, Yuzhi",
-      "email": "yguo30@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00121",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "12:30",
-          "end": "13:45"
-        }
-      ]
-    },
-    {
-      "course": "CS 44201",
-      "title": "ARTIFICIAL INTELLIGENCE",
-      "section": "002",
-      "crn": "19160",
-      "instructor": "Guo, Yuzhi",
-      "email": "yguo30@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00121",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "12:30",
-          "end": "13:45"
-        }
-      ]
-    },
-    {
       "course": "CS 46101",
       "title": "DESIGN AND ANALYSIS OF ALGORITHMS",
       "section": "001",
