@@ -750,28 +750,6 @@
       ]
     },
     {
-      "course": "CS 42201",
-      "title": "NUMERICAL LINEAR ALGEBRA",
-      "section": "001",
-      "crn": "12047",
-      "instructor": "Zheng, Xiaoyu",
-      "email": "xzheng3@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00276",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday",
-            "Friday"
-          ],
-          "start": "09:55",
-          "end": "10:45"
-        }
-      ]
-    },
-    {
       "course": "CS 43118",
       "title": "GRAPH AND SOCIAL NETWORK ANALYSIS",
       "section": "001",
