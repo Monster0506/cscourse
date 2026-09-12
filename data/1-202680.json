@@ -372,27 +372,6 @@
       ]
     },
     {
-      "course": "CS 33301",
-      "title": "EMBEDDED SYSTEM PROGRAMMING",
-      "section": "001",
-      "crn": "12037",
-      "instructor": "Kim, JungYoon",
-      "email": "jkim78@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00115",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "15:45",
-          "end": "17:00"
-        }
-      ]
-    },
-    {
       "course": "CS 33302",
       "title": "INTRODUCTION TO INTELLIGENT ROBOTICS",
       "section": "001",
