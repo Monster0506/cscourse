@@ -687,48 +687,6 @@
       ]
     },
     {
-      "course": "CS 46101",
-      "title": "DESIGN AND ANALYSIS OF ALGORITHMS",
-      "section": "001",
-      "crn": "12062",
-      "instructor": "Allouzi, Maha",
-      "email": "mallouzi@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "SMH 00110",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "15:45",
-          "end": "17:00"
-        }
-      ]
-    },
-    {
-      "course": "CS 46101",
-      "title": "DESIGN AND ANALYSIS OF ALGORITHMS",
-      "section": "002",
-      "crn": "19161",
-      "instructor": "Allouzi, Maha",
-      "email": "mallouzi@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "SMH 00110",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "15:45",
-          "end": "17:00"
-        }
-      ]
-    },
-    {
       "course": "CS 47101",
       "title": "COMPUTER GRAPHICS",
       "section": "001",
