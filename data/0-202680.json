@@ -1,0 +1,860 @@
+{
+  "version": 1,
+  "term": {
+    "id": "0-202680",
+    "name": "Full Fall 2026"
+  },
+  "imported_at": "2026-08-30T05:40:43Z",
+  "unresolved_instructors": [
+    "Addae, Sampson",
+    "Rahaei, Arefeh",
+    "Shaon, Hasan Shamim",
+    "Smith, Deborah",
+    "Zheng, Xiaoyu"
+  ],
+  "ambiguous_combined_sections": [],
+  "lectures": [
+  {
+    "course": "CS 10051",
+    "title": "COMPUTER SCIENCE PRINCIPLES",
+    "section": "",
+    "crn": "",
+    "instructor": "Rahaei, Arefeh",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "ORH 00214",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 10062",
+    "title": "PROGRAMMING FOR SCIENTISTS",
+    "section": "",
+    "crn": "",
+    "instructor": "Allouzi, Maha A",
+    "email": "mallouzi@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00204",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 13001",
+    "title": "CS I: PROGRAM/PROBLEM SOLVING",
+    "section": "",
+    "crn": "",
+    "instructor": "Bektic, Meldin",
+    "email": "mbektic@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "LRH 00143",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 13012",
+    "title": "CS IB: OBJECT ORIENTED PROGRAM",
+    "section": "",
+    "crn": "",
+    "instructor": "Addae, Sampson",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00211",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 23001",
+    "title": "COMPUTER SCIENCE II: DATA STRUCTURES AND ABSTRACTION - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "Maletic, Jonathan I",
+    "email": "jmaletic@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00110",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "14:15",
+        "end": "15:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 23022",
+    "title": "DISCRETE STRUCTURES FOR COMPUTER SCIENCE - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "Villalobos Herrera, Giovanni",
+    "email": "gvillalo@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "AEB 00052",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "14:15",
+        "end": "15:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 32301",
+    "title": "HUMAN INTERFACE COMPUTING",
+    "section": "",
+    "crn": "",
+    "instructor": "Hasan, Raiful",
+    "email": "rhasan7@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 33007",
+    "title": "INTRODUCTION TO DATABASE SYSTEM DESIGN - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "Villalobos Herrera, Giovanni",
+    "email": "gvillalo@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "AEB 00052",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 33101",
+    "title": "STRUCT-PROGRAM LANGUAGE",
+    "section": "",
+    "crn": "",
+    "instructor": "DeLozier, Gregory S",
+    "email": "gdelozie@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00111",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "15:45",
+        "end": "17:00"
+      }
+    ]
+  },
+  {
+    "course": "CS 33192/DATA 69192/CS 69192",
+    "title": "INTERNSHIP IN COMPUTER SCIENCE / GRADUATE INTERNSHIP",
+    "section": "",
+    "crn": "",
+    "instructor": "DeLozier, Gregory S",
+    "email": "gdelozie@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "-",
+    "meetings": []
+  },
+  {
+    "course": "CS 33211",
+    "title": "OPERATING SYSTEMS - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "Guan, Qiang",
+    "email": "qguan@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MLH 00107",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 33301",
+    "title": "EMBEDDED SYSTEM PROGRAMMING",
+    "section": "",
+    "crn": "",
+    "instructor": "Kim, JungYoon",
+    "email": "jkim78@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00115",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "15:45",
+        "end": "17:00"
+      }
+    ]
+  },
+  {
+    "course": "CS 33302",
+    "title": "INTRO TO INTELLIGENT ROBOTICS",
+    "section": "",
+    "crn": "",
+    "instructor": "Shaon, Hasan Shamim",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00156",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 33901",
+    "title": "SOFTWARE ENGINEERING - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "DeLozier, Gregory S",
+    "email": "gdelozie@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "19:00",
+        "end": "20:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 35101",
+    "title": "COMPUTER ORGANIZATION",
+    "section": "",
+    "crn": "",
+    "instructor": "Samba, Augustine S",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00110",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "17:30",
+        "end": "18:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 35201",
+    "title": "COMPUTER COMMUNICATION NETWORKS - HONORS",
+    "section": "",
+    "crn": "",
+    "instructor": "Villalobos Herrera, Giovanni",
+    "email": "gvillalo@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "14:15",
+        "end": "15:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 38101",
+    "title": "INTRO TO GAME PROGRAMMING",
+    "section": "",
+    "crn": "",
+    "instructor": "Bektic, Meldin",
+    "email": "mbektic@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "BOW 00207",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 41038",
+    "title": "INTERMEDIATE LOGIC",
+    "section": "",
+    "crn": "",
+    "instructor": "Smith, Deborah C",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "BOW 00315",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 42201/CS 52201",
+    "title": "NUMERICAL LINEAR ALGEBRA",
+    "section": "",
+    "crn": "",
+    "instructor": "Zheng, Xiaoyu",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00276",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "start": "09:55",
+        "end": "10:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 43105/CS 44105/CS 61002/CS 63015/CS 67101/CS 73015/CS 77101",
+    "title": "DATA MINING TECHNIQUES / WEB PROGRAMMING I / ALGORITHMS AND PROGRAMMING I / ADVANCED COMPUTER GRAPHICS",
+    "section": "",
+    "crn": "",
+    "instructor": "Samba, Augustine S / Villalobos Herrera, Giovanni / Allouzi, Maha A / Lian, Xiang / Zhao, Ye",
+    "email": "gvillalo@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "WEB COURSE",
+    "meetings": []
+  },
+  {
+    "course": "CS 43118/CS 53118/CS 73118",
+    "title": "GRAPH  SOCIAL NETWK ANALYSIS",
+    "section": "",
+    "crn": "",
+    "instructor": "Jin, Ruoming",
+    "email": "rjin1@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00121",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 43305/CS 53305",
+    "title": "ADVANCED DIGITAL DESIGN",
+    "section": "",
+    "crn": "",
+    "instructor": "Samba, Augustine S",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "14:15",
+        "end": "15:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 43334/CS 53334/CS 73334",
+    "title": "HUMAN-ROBOT INTERACTION",
+    "section": "",
+    "crn": "",
+    "instructor": "Kim, Jong-Hoon",
+    "email": "jkim72@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00156",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 43401/CS 53401",
+    "title": "SECURE PROGRAMMING",
+    "section": "",
+    "crn": "",
+    "instructor": "Allouzi, Maha A",
+    "email": "mallouzi@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00204",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 44001",
+    "title": "CS III - PROGRAMMING PATTERNS",
+    "section": "",
+    "crn": "",
+    "instructor": "Nesterenko, Mikhail",
+    "email": "mnestere@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 44201/CS 54201",
+    "title": "ARTIFICIAL INTELLIGENCE",
+    "section": "",
+    "crn": "",
+    "instructor": "Guo, Yuzhi",
+    "email": "yguo30@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 44901",
+    "title": "SOFTWARE DEVELOPMENT PROJECT - WRITING INTENSIVE",
+    "section": "",
+    "crn": "",
+    "instructor": "Bektic, Meldin",
+    "email": "mbektic@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00376",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 46101/CS 56101",
+    "title": "ALGORITHMS",
+    "section": "",
+    "crn": "",
+    "instructor": "Allouzi, Maha A",
+    "email": "mallouzi@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00110",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "15:45",
+        "end": "17:00"
+      }
+    ]
+  },
+  {
+    "course": "CS 47101",
+    "title": "COMPUTER GRAPHICS",
+    "section": "",
+    "crn": "",
+    "instructor": "Bektic, Meldin",
+    "email": "mbektic@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00121",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 47206/CS 57206",
+    "title": "DATA SECURITY AND PRIVACY",
+    "section": "",
+    "crn": "",
+    "instructor": "Xu, Lei",
+    "email": "lxu12@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00111",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "14:15",
+        "end": "15:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 47221/CS 57221",
+    "title": "INTRODUCTION TO CRYPTOLOGY",
+    "section": "",
+    "crn": "",
+    "instructor": "Xu, Lei",
+    "email": "lxu12@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00110",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 49999",
+    "title": "CAPSTONE PROJECT - WRITING INTENSIVE",
+    "section": "",
+    "crn": "",
+    "instructor": "Sharma, Gokarna",
+    "email": "gsharma2@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "ORH 00150",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 63005/CS 73005",
+    "title": "ADV DATABASE SYSTEM DESIGN",
+    "section": "",
+    "crn": "",
+    "instructor": "DeLozier, Gregory S",
+    "email": "gdelozie@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00139",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "17:30",
+        "end": "18:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 63018/CS 73018",
+    "title": "PROBABILISTIC DATA MGMT",
+    "section": "",
+    "crn": "",
+    "instructor": "Lian, Xiang",
+    "email": "xlian@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00228",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "09:15",
+        "end": "10:30"
+      }
+    ]
+  },
+  {
+    "course": "CS 63100/CS 73100",
+    "title": "COMPUTATIONAL HEALTH INFO",
+    "section": "",
+    "crn": "",
+    "instructor": "Kim, JungYoon",
+    "email": "jkim78@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00276",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 63201/CS 73201",
+    "title": "ADVANCED OPERATING SYSTEMS",
+    "section": "",
+    "crn": "",
+    "instructor": "Khan, Javed I",
+    "email": "javed@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "SMH 00204",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "12:30",
+        "end": "13:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 66101/CS 76101",
+    "title": "ADVANCED TOPICS IN ALGORITHMS",
+    "section": "",
+    "crn": "",
+    "instructor": "Dragan, Feodor F",
+    "email": "fdragan@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00115",
+    "meetings": [
+      {
+        "days": [
+          "Monday",
+          "Wednesday"
+        ],
+        "start": "17:30",
+        "end": "18:45"
+      }
+    ]
+  },
+  {
+    "course": "CS 67301/CS 77301",
+    "title": "SCIENTIFIC VISUALIZATION",
+    "section": "",
+    "crn": "",
+    "instructor": "Zhao, Ye",
+    "email": "yzhao6@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00211",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "11:00",
+        "end": "12:15"
+      }
+    ]
+  },
+  {
+    "course": "CS 69099",
+    "title": "CAPSTONE PROJECT",
+    "section": "",
+    "crn": "",
+    "instructor": "Guan, Qiang",
+    "email": "qguan@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00121",
+    "meetings": [
+      {
+        "days": [
+          "Friday"
+        ],
+        "start": "10:00",
+        "end": "12:30"
+      }
+    ]
+  },
+  {
+    "course": "DATA 69099",
+    "title": "CAPSTONE PROJECT",
+    "section": "",
+    "crn": "",
+    "instructor": "Samba, Augustine S",
+    "email": null,
+    "campus": "KC",
+    "component": "",
+    "room": "MSB 00211",
+    "meetings": [
+      {
+        "days": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "start": "15:45",
+        "end": "17:00"
+      }
+    ]
+  },
+  {
+    "course": "CS 69191/CS 89191",
+    "title": "MASTER'S SEMINAR / DOCTORAL SEMINAR",
+    "section": "",
+    "crn": "",
+    "instructor": "Jin, Ruoming",
+    "email": "rjin1@kent.edu",
+    "campus": "KC",
+    "component": "",
+    "room": "AEB 00052",
+    "meetings": [
+      {
+        "days": [
+          "Monday"
+        ],
+        "start": "15:20",
+        "end": "17:00"
+      }
+    ]
+  }
+]
+}
