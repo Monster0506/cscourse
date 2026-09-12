@@ -622,48 +622,6 @@
           "end": "15:30"
         }
       ]
-    },
-    {
-      "course": "CS 47221",
-      "title": "INTRODUCTION TO CRYPTOLOGY",
-      "section": "001",
-      "crn": "12069",
-      "instructor": "Xu, Lei",
-      "email": "lxu12@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "SMH 00110",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday"
-          ],
-          "start": "12:30",
-          "end": "13:45"
-        }
-      ]
-    },
-    {
-      "course": "CS 47221",
-      "title": "INTRODUCTION TO CRYPTOLOGY",
-      "section": "002",
-      "crn": "19162",
-      "instructor": "Xu, Lei",
-      "email": "lxu12@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "SMH 00110",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday"
-          ],
-          "start": "12:30",
-          "end": "13:45"
-        }
-      ]
     }
   ]
 }
