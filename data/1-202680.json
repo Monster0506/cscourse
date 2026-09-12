@@ -330,48 +330,6 @@
       ]
     },
     {
-      "course": "CS 32301",
-      "title": "HUMAN INTERFACE COMPUTING",
-      "section": "001",
-      "crn": "12030",
-      "instructor": "Hasan, Raiful",
-      "email": "rhasan7@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 32301",
-      "title": "HUMAN INTERFACE COMPUTING",
-      "section": "002",
-      "crn": "19148",
-      "instructor": "Hasan, Raiful",
-      "email": "rhasan7@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
       "course": "CS 33211",
       "title": "OPERATING SYSTEMS",
       "section": "001",
