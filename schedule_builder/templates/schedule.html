@@ -17,6 +17,12 @@
           <option value="{{ term.id }}" {% if schedule and term.id == schedule.term.id %}selected{% endif %}>{{ term.name }}</option>
         {% endfor %}
       </select>
+      <label for="level">Level</label>
+      <select id="level" name="level" onchange="this.form.submit()">
+        {% for value, label in levels.items() %}
+          <option value="{{ value }}" {% if value == level %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
       <button type="submit">Load</button>
     </form>
   </header>
@@ -26,7 +32,7 @@
       <section aria-labelledby="calendar-heading">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">{{ schedule.lectures|length }} lecture sections</p>
+            <p class="eyebrow">{{ lecture_count }} lecture sections</p>
             <h2 id="calendar-heading">Weekly calendar</h2>
           </div>
         </div>

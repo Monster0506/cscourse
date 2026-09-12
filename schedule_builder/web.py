@@ -4,6 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 import json
+import re
 
 from flask import Flask, abort, render_template, request
 
@@ -13,11 +14,42 @@ from schedule_builder.vsb import format_days
 DAY_ORDER = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 DAY_INDEX = {day: index + 1 for index, day in enumerate(DAY_ORDER)}
 TIME_RAIL = tuple(f"{hour % 12 or 12} {'AM' if hour < 12 else 'PM'}" for hour in range(7, 21))
+GRAD_CUTOFF = 50000
+DEFAULT_LEVEL = "undergrad"
+LEVELS = {
+    "all": "All levels",
+    "undergrad": "Undergraduate",
+    "grad": "Graduate",
+}
 
 
 def minutes(value: str) -> int:
     hour, minute = value.split(":", 1)
     return int(hour) * 60 + int(minute)
+
+
+def course_num(code: str) -> int:
+    match = re.search(r"\d+", code)
+    return int(match.group()) if match else 0
+
+
+def course_levels(course: str) -> tuple[bool, bool]:
+    nums = [course_num(code) for code in course.split("/")]
+    return any(n < GRAD_CUTOFF for n in nums), any(n >= GRAD_CUTOFF for n in nums)
+
+
+def level_type(course: str) -> str:
+    has_under, has_grad = course_levels(course)
+    if has_under and has_grad:
+        return "cross"
+    return "grad" if has_grad else "undergrad"
+
+
+def matches_level(course: str, level: str) -> bool:
+    if level == "all":
+        return True
+    has_under, has_grad = course_levels(course)
+    return has_under if level == "undergrad" else has_grad
 
 
 def layout_overlapping_events(events: list[dict[str, Any]]) -> None:
@@ -148,6 +180,7 @@ def group_room_sessions(lectures: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "meetings": meetings,
                 "sections": [],
                 "speakers": [],
+                "level": level_type(lecture["course"]),
             },
         )
         section = {"section": lecture["section"], "crn": lecture["crn"]}
@@ -192,14 +225,23 @@ def create_app(data_directory: Path | None = None) -> Flask:
                 available_terms.append({"id": term["id"], "name": term["name"]})
 
         selected = request.args.get("term") or (available_terms[0]["id"] if available_terms else None)
+        level = request.args.get("level") or DEFAULT_LEVEL
+        if level not in LEVELS:
+            abort(404)
         if selected is None:
-            return render_template("schedule.html", terms=[], schedule=None, calendar={}, rows=[], hours=TIME_RAIL)
+            return render_template(
+                "schedule.html", terms=[], schedule=None, calendar={}, rows=[], hours=TIME_RAIL,
+                levels=LEVELS, level=level,
+            )
         if selected not in {term["id"] for term in available_terms}:
             abort(404)
 
         with (directory / f"{selected}.json").open(encoding="utf-8") as source:
             schedule = json.load(source)
-        sessions = group_room_sessions(schedule["lectures"])
+        lectures = schedule["lectures"]
+        if level != "all":
+            lectures = [lecture for lecture in lectures if matches_level(lecture["course"], level)]
+        sessions = group_room_sessions(lectures)
         calendar: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for session in sessions:
             for meeting in session["meetings"]:
@@ -234,6 +276,9 @@ def create_app(data_directory: Path | None = None) -> Flask:
             rows=sessions,
             days=DAY_ORDER,
             hours=TIME_RAIL,
+            levels=LEVELS,
+            level=level,
+            lecture_count=len(lectures),
         )
 
     return app
