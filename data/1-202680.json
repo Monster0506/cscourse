@@ -36,27 +36,6 @@
       ]
     },
     {
-      "course": "CS 23022",
-      "title": "DISCRETE STRUCTURES FOR COMPUTER SCIENCE",
-      "section": "003",
-      "crn": "19147",
-      "instructor": "Villalobos Herrera, Giovanni",
-      "email": "gvillalo@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "14:15",
-          "end": "15:30"
-        }
-      ]
-    },
-    {
       "course": "CS 33211",
       "title": "OPERATING SYSTEMS",
       "section": "002",
