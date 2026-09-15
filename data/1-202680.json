@@ -36,132 +36,6 @@
       ]
     },
     {
-      "course": "CS 10051",
-      "title": "COMPUTER SCIENCE PRINCIPLES",
-      "section": "002",
-      "crn": "12014",
-      "instructor": null,
-      "email": null,
-      "campus": "KC",
-      "component": "Combined L",
-      "room": "ORH 00214",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 10051",
-      "title": "COMPUTER SCIENCE PRINCIPLES",
-      "section": "003",
-      "crn": "12015",
-      "instructor": "Rahaei, Arefeh",
-      "email": null,
-      "campus": "KC",
-      "component": "Combined L",
-      "room": "ORH 00214",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 10051",
-      "title": "COMPUTER SCIENCE PRINCIPLES",
-      "section": "004",
-      "crn": "12016",
-      "instructor": "Rahaei, Arefeh",
-      "email": null,
-      "campus": "KC",
-      "component": "Combined L",
-      "room": "ORH 00214",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 10051",
-      "title": "COMPUTER SCIENCE PRINCIPLES",
-      "section": "005",
-      "crn": "12017",
-      "instructor": "Rahaei, Arefeh",
-      "email": null,
-      "campus": "KC",
-      "component": "Combined L",
-      "room": "ORH 00214",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 10051",
-      "title": "COMPUTER SCIENCE PRINCIPLES",
-      "section": "006",
-      "crn": "12018",
-      "instructor": "Rahaei, Arefeh",
-      "email": null,
-      "campus": "KC",
-      "component": "Combined L",
-      "room": "ORH 00214",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "09:15",
-          "end": "10:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 23022",
-      "title": "DISCRETE STRUCTURES FOR COMPUTER SCIENCE",
-      "section": "001",
-      "crn": "12028",
-      "instructor": "Villalobos Herrera, Giovanni",
-      "email": "gvillalo@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "14:15",
-          "end": "15:30"
-        }
-      ]
-    },
-    {
       "course": "CS 23022",
       "title": "DISCRETE STRUCTURES FOR COMPUTER SCIENCE",
       "section": "003",
@@ -179,27 +53,6 @@
           ],
           "start": "14:15",
           "end": "15:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 33211",
-      "title": "OPERATING SYSTEMS",
-      "section": "001",
-      "crn": "12036",
-      "instructor": "Guan, Qiang",
-      "email": "qguan@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "12:30",
-          "end": "13:45"
         }
       ]
     },
@@ -227,27 +80,6 @@
     {
       "course": "CS 35101",
       "title": "COMPUTER ORGANIZATION",
-      "section": "001",
-      "crn": "12041",
-      "instructor": "Samba, Augustine",
-      "email": "asamba@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "SMH 00110",
-      "meetings": [
-        {
-          "days": [
-            "Tuesday",
-            "Thursday"
-          ],
-          "start": "17:30",
-          "end": "18:45"
-        }
-      ]
-    },
-    {
-      "course": "CS 35101",
-      "title": "COMPUTER ORGANIZATION",
       "section": "002",
       "crn": "19156",
       "instructor": "Samba, Augustine",
@@ -267,73 +99,10 @@
       ]
     },
     {
-      "course": "CS 35201",
-      "title": "COMPUTER COMMUNICATION NETWORKS",
-      "section": "001",
-      "crn": "12043",
-      "instructor": "Villalobos Herrera, Giovanni",
-      "email": "gvillalo@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday"
-          ],
-          "start": "14:15",
-          "end": "15:30"
-        }
-      ]
-    },
-    {
-      "course": "CS 35201",
-      "title": "COMPUTER COMMUNICATION NETWORKS",
-      "section": "002",
-      "crn": "19157",
-      "instructor": "Villalobos Herrera, Giovanni",
-      "email": "gvillalo@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "MSB 00228",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday"
-          ],
-          "start": "14:15",
-          "end": "15:30"
-        }
-      ]
-    },
-    {
       "course": "CS 38101",
       "title": "INTRODUCTION TO GAME PROGRAMMING",
       "section": "001",
       "crn": "12045",
-      "instructor": "Bektic, Meldin",
-      "email": "mbektic@kent.edu",
-      "campus": "KC",
-      "component": "Lec",
-      "room": "BOW 00207",
-      "meetings": [
-        {
-          "days": [
-            "Monday",
-            "Wednesday"
-          ],
-          "start": "11:00",
-          "end": "12:15"
-        }
-      ]
-    },
-    {
-      "course": "CS 38101",
-      "title": "INTRODUCTION TO GAME PROGRAMMING",
-      "section": "002",
-      "crn": "19158",
       "instructor": "Bektic, Meldin",
       "email": "mbektic@kent.edu",
       "campus": "KC",
